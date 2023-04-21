@@ -1,11 +1,11 @@
 import React from "react";
 
 import AddList from "./list";
-function ShowLister({ databse, onDelete }) {
+function ShowLister({ database, onDelete }) {
   return (
     <div>
-      {databse.map((data) => (
-        <AddList key="data.id" data={data} onDelete={onDelete} />
+      {database.map((data, index) => (
+        <AddList key={index} data={data} onDelete={onDelete} />
       ))}
       <br />
       <span

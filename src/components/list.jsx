@@ -35,7 +35,7 @@ function AddList({ data, onDelete }) {
     setOpen(false);
   };
   return (
-    <Card sx={{ maxWidth: 345 }} style={{ borderLeft: color }}>
+    <Card sx={{ maxWidth: 345, mb: "5px" }} style={{ borderLeft: color }}>
       <CardActionArea onClick={handleClickOpen}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

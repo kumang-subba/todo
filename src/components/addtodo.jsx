@@ -13,12 +13,10 @@ import Select from "@mui/material/Select";
 
 export default function EnterTodo({ onCancel, onAddList }) {
   const [title, setTitle] = React.useState("");
-  const [dline, setDline] = React.useState("");
-  const [sts, setSts] = React.useState();
+  const [deadline, setDeadline] = React.useState("");
+  const [sts, setSts] = React.useState("");
+  const [error, setError] = React.useState(false);
 
-  const handleChange = (event) => {
-    setSts(event.target.value);
-  };
   return (
     <Box sx={{ maxWidth: 500 }}>
       <Card variant="inline" sx={{ bgcolor: "#a6a6a6" }}>
@@ -43,6 +41,7 @@ export default function EnterTodo({ onCancel, onAddList }) {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                error={error && title === ""}
               />
               <br />
               <TextField
@@ -51,8 +50,9 @@ export default function EnterTodo({ onCancel, onAddList }) {
                 variant="outlined"
                 required
                 type="text"
-                value={dline}
-                onChange={(e) => setDline(e.target.value)}
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+                error={error && deadline === ""}
               />
               <br />
               <FormControl fullWidth>
@@ -64,7 +64,8 @@ export default function EnterTodo({ onCancel, onAddList }) {
                   id="demo-simple-select"
                   value={sts}
                   label="Status"
-                  onChange={handleChange}
+                  onChange={(e) => setSts(e.target.value)}
+                  error={error && sts === ""}
                 >
                   <MenuItem
                     value={1}
@@ -99,9 +100,15 @@ export default function EnterTodo({ onCancel, onAddList }) {
               size="small"
               variant="contained"
               onClick={() => {
-                onAddList(title, dline, sts);
-                setDline("");
-                setTitle("");
+                if (title !== "" && deadline !== "" && sts !== "") {
+                  onAddList(title, deadline, sts);
+                  setError(false);
+                  setDeadline("");
+                  setTitle("");
+                  setSts("");
+                } else {
+                  setError(true);
+                }
               }}
             >
               Add
